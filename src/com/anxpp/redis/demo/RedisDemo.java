@@ -1,54 +1,54 @@
-package com.anxpp.dedis.demo;
+ï»¿package com.anxpp.redis.demo;
 import java.util.HashMap;
 import java.util.Map;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 /**
- * Redis²âÊÔDemo
+ * Redisæµ‹è¯•Demo
  * @author anxpp.com
  */
 public class RedisDemo {
 	JedisPool pool;
     Jedis jedis;
     public RedisDemo() {
-    	pool = new JedisPool(new JedisPoolConfig(), "192.168.40.130");
+    	pool = new JedisPool(new JedisPoolConfig(), "192.168.40.128");
     	jedis = pool.getResource();
 //    	jedis.auth("password");
 	}
     /**
-     * Ìí¼ÓÒ»¸öĞÂÖµ£¬ÈôÕâ¸ökeyÒÑ¾­´æÔÚ£¬ÔòÌæ»»µôÖ®Ç°µÄÖµ
-     * @param key ÖµµÄkey
-     * @param value ÒªÌí¼ÓµÄÖµ
-     * @return Ìí¼Ó³É¹¦Ê±»á·µ»Ø¡°OK¡±£¬·ñÔò·µ»Ø´íÎóĞÅÏ¢
+     * æ·»åŠ ä¸€ä¸ªæ–°å€¼ï¼Œè‹¥è¿™ä¸ªkeyå·²ç»å­˜åœ¨ï¼Œåˆ™æ›¿æ¢æ‰ä¹‹å‰çš„å€¼
+     * @param key å€¼çš„key
+     * @param value è¦æ·»åŠ çš„å€¼
+     * @return æ·»åŠ æˆåŠŸæ—¶ä¼šè¿”å›â€œOKâ€ï¼Œå¦åˆ™è¿”å›é”™è¯¯ä¿¡æ¯
      */
     public String setString(String key,String value){
     	return jedis.set(key, value);
     }
     /**
-     * »ñÈ¡Öµ
-     * @param key Òª»ñÈ¡µÄÖµ¶ÔÓ¦µÄkey
-     * @return Èôkey´æÔÚ£¬·µ»Ø¶ÔÓ¦µÄÖµ£¬Èô²»´æÔÚ£¬·µ»Ønull
+     * è·å–å€¼
+     * @param key è¦è·å–çš„å€¼å¯¹åº”çš„key
+     * @return è‹¥keyå­˜åœ¨ï¼Œè¿”å›å¯¹åº”çš„å€¼ï¼Œè‹¥ä¸å­˜åœ¨ï¼Œè¿”å›null
      */
     public String getString(String key){
     	return jedis.get(key);
     }
     /**
-     * ĞŞ¸ÄÊı¾İ
-     * @param key ÒªĞŞ¸ÄµÄÖµµÄkey
-     * @param appendStr ÒªÌí¼ÓµÄÄÚÈİ
-     * @return ·µ»Øµ±Ç°key¶ÔÓ¦StringµÄ³¤¶È
-     * Èôkey²»´æÔÚ£¬¾ÍĞÂÔöÖµ£¬Èô´æÔÚ£¬¾ÍÌí¼Óµ½ÒÑ´æÔÚµÄStringµÄºóÃæ
+     * ä¿®æ”¹æ•°æ®
+     * @param key è¦ä¿®æ”¹çš„å€¼çš„key
+     * @param appendStr è¦æ·»åŠ çš„å†…å®¹
+     * @return è¿”å›å½“å‰keyå¯¹åº”Stringçš„é•¿åº¦
+     * è‹¥keyä¸å­˜åœ¨ï¼Œå°±æ–°å¢å€¼ï¼Œè‹¥å­˜åœ¨ï¼Œå°±æ·»åŠ åˆ°å·²å­˜åœ¨çš„Stringçš„åé¢
      */
     public long appendString(String key,String appendStr){
     	jedis.del(key);
     	return jedis.append(key, appendStr);
     }
     /**
-     * É¾³ıString
-     * @param key ÒªÉ¾³ıµÄÖµµÄkey
-     * @return ·µ»ØÉ¾³ıµÄ¸öÊı
-     * Èôkey²»´æÔÚ£¬¾Í·µ»Ø0£¬±íÊ¾Ò»¸ö¶¼Ã»ÓĞÉ¾³ı
+     * åˆ é™¤String
+     * @param key è¦åˆ é™¤çš„å€¼çš„key
+     * @return è¿”å›åˆ é™¤çš„ä¸ªæ•°
+     * è‹¥keyä¸å­˜åœ¨ï¼Œå°±è¿”å›0ï¼Œè¡¨ç¤ºä¸€ä¸ªéƒ½æ²¡æœ‰åˆ é™¤
      */
     public long delString(String key){
     	return jedis.del(key);
